@@ -84,6 +84,11 @@ public:
 	}
 
 	template<typename D>
+	ThisType operator/(const D &other) const {
+		return ThisType(count_ + duration_cast<ThisType>(other).count_);
+	}
+
+	template<typename D>
 	ThisType &operator-=(const D &other) {
 		count_ -= duration_cast<ThisType>(other).count_;
 		return *this;

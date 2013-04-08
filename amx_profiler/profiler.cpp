@@ -166,6 +166,9 @@ void Profiler::EndFunction(ucell address) {
 			FunctionStatistics *top_fn_stats = stats_.GetFunctionStatistis(top->function()->address());
 			assert(top_fn_stats != 0);
 			top_fn_stats->AdjustChildTime(old_top.timer()->total_time());
+			top_fn_stats->AddToAverageTime(old_top.timer()->total_time());
+			top_fn_stats->UpdateWorstTime(old_top.timer()->total_time());
+			top_fn_stats->UpdateBestTime(old_top.timer()->total_time());
 		}
 
 		if (call_graph_enabled_) {

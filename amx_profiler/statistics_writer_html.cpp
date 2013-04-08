@@ -107,6 +107,9 @@ void StatisticsWriterHtml::Write(const Statistics *stats)
 	"				<th>Calls</th>\n"
 	"				<th colspan=\"2\">Self Time</th>\n"
 	"				<th colspan=\"2\">Total Time</th>\n"
+	"				<th>Best time</th>\n"
+	"				<th>Worst time</th>\n"
+	"				<th>Average time</th>\n"
 	"			</tr>\n"
 	"		</thead>\n"
 	"		<tbody>\n"
@@ -142,6 +145,10 @@ void StatisticsWriterHtml::Write(const Statistics *stats)
 		double total_time_sec = Seconds(fn_stats->total_time()).count();
 		double total_time_percent = fn_stats->total_time().count() * 100 / total_time_all.count();
 
+		double best_time_sec = Seconds(fn_stats->best_time()).count();
+		double worst_time_sec = Seconds(fn_stats->worst_time()).count();
+		double average_time_sec = Seconds(fn_stats->average_time()).count();
+
 		*stream()
 		<< "		<tr>\n"
 		<< "			<td>" << fn_stats->function()->type() << "</td>\n"
@@ -151,6 +158,9 @@ void StatisticsWriterHtml::Write(const Statistics *stats)
 		<< "			<td>" << std::fixed << std::setprecision(3) << self_time_sec << "s</td>\n"
 		<< "			<td>" << std::fixed << std::setprecision(2) << total_time_percent << "%</td>\n"
 		<< "			<td>" << std::fixed << std::setprecision(3) << total_time_sec << "s</td>\n"
+		<< "			<td>" << std::fixed << std::setprecision(3) << best_time_sec << "s</td>\n"
+		<< "			<td>" << std::fixed << std::setprecision(3) << worst_time_sec << "s</td>\n"
+		<< "			<td>" << std::fixed << std::setprecision(3) << average_time_sec << "s</td>\n"
 		<< "			</td>\n"
 		<< "		</tr>\n";
 	};

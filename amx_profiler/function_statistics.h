@@ -50,12 +50,24 @@ public:
 
 	Nanoseconds GetSelfTime() const { return total_time() - child_time(); }
 
+	const Nanoseconds average_time() const { return average_time_; }
+	void AddToAverageTime(Nanoseconds time) { average_time_ = (average_time_ + time) / (Nanoseconds)2; }
+
+	const Nanoseconds worst_time() const { return worst_time_; }
+	void UpdateWorstTime(Nanoseconds time) { worst_time_ = time > worst_time_ ? time : worst_time_; }
+
+	const Nanoseconds best_time() const { return best_time_; }
+	void UpdateBestTime(Nanoseconds time) { best_time_ = time < best_time_ ? time : best_time_; }
+
 private:
 	Function *fn_;
 
 	long num_calls_;
 	Nanoseconds total_time_;
 	Nanoseconds child_time_;
+	Nanoseconds average_time_;
+	Nanoseconds worst_time_;
+	Nanoseconds best_time_;
 };
 
 } // namespace amx_profiler
